@@ -25,22 +25,15 @@ jobs:
     - name: Print cache-me
       run: cat cache-me
 
-    - name: Save cache
-      id: cache-save
-      uses: actions/cache/save@v4
-      with:
-        path: cache-me
-        key: v1
-
-    - name: Restore cache
-      id: restore-cache
-      uses: actions/cache/restore@v4
+    - name: Cache
+      id: cache2
+      uses: actions/cache@v4
       with:
         path: cache-me
         key: v1
 
     - name: Is hit?
-      run: echo ${{ toJSON(steps.restore-cache.outputs.cache-hit) }}
+      run: echo ${{ toJSON(steps.cache2.outputs.cache-hit) }}
 
     - name: Print cache-me
       run: cat cache-me
