@@ -23,15 +23,21 @@ jobs:
     - name: Print cache-me
       run: cat cache-me
 
-    - name: Cache
-      id: cache2
-      uses: actions/cache@v4
+    - name: Save cache
+      id: cache-save
+      uses: actions/cache/save@v4
+      with:
+        path: cache-me
+        key: ${{ runner.os }}-primes
+
+    - name: Restore cache
+      uses: actions/cache/restore@v4
       with:
         path: cache-me
         key: ${{ runner.os }}-primes
 
     - name: Is hit?
-      run: echo {{ steps.cache-primes.outputs.cache-hit }}
+      run: echo ${{ steps.cache-primes.outputs.cache-hit }}
 
     - name: Print cache-me
       run: cat cache-me
